@@ -1,0 +1,2 @@
+# ts-common
+Typescript utils.
