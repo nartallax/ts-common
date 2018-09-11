@@ -15,7 +15,8 @@ export class Lock {
 		let lsers = this.listeners || [];
 		
 		while(lsers.length){
-			lsers.shift().call(null);
+			let lser = lsers.shift() as Listener;
+			lser.call(null);
 			if(this.locked) return;
 		}
 		

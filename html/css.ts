@@ -12,14 +12,12 @@ function rulesOf(x: CssRuleable): string {
 }
 
 function classesOf(x: CssCodeable): string {
-	let result: string = null;
 	if(typeof(x) === "string")
-		result = x;
+		return x;
 	if(Array.isArray(x))
-		result = x.map(rulesOf).join("\n\n");
+		return x.map(rulesOf).join("\n\n");
 	else 
-		result = Object.keys(x).map(k => k + " {\n\t" + rulesOf(x[k]) + "\n}").join("\n\n");
-	return result;
+		return Object.keys(x).map(k => k + " {\n\t" + rulesOf(x[k]) + "\n}").join("\n\n");
 };
 
 export function render(code: CssCodeable): HTMLStyleElement {
@@ -45,6 +43,6 @@ export function create(code: CssCodeable): HTMLStyleElement {
 }
 
 export function createOnce(code: CssCodeable): () => HTMLStyleElement {
-	let el: HTMLStyleElement = null;
+	let el: HTMLStyleElement | null = null;
 	return () => el || (el = create(code));
 }

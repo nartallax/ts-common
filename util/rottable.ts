@@ -24,7 +24,7 @@ export class Rottable<T> {
 						await this.forceRunFetch();
 					}
 				} else {
-					ok(this.stored);
+					ok(this.stored as T);
 				}
 			} catch(e){ bad(e) }
 		});			
@@ -41,6 +41,6 @@ export class Rottable<T> {
 		this.lastFetchTime = Date.now();
 		let waiters = this.valueWaiters;
 		this.valueWaiters = [];
-		waiters.forEach(x => x.ok(this.stored));
+		waiters.forEach(x => x.ok(this.stored as T));
 	}
 }

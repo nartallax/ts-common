@@ -1,5 +1,4 @@
 import {MapObject} from "./types";
-import {fail} from "./fail";
 
 export type WriteOp = (data: string, encoding: string) => void;
 export type Writer = { write: WriteOp } | WriteOp;
@@ -8,7 +7,7 @@ export type Writer = { write: WriteOp } | WriteOp;
 export abstract class SeparatedWriterBase {
 	private headers: string[] | null = null;
 	private headersFlushed = false;
-	private write: WriteOp = null;
+	private readonly write: WriteOp;
 	private encoding: string = "utf8";
 
 	constructor(writer: Writer, headers?: string[] | null, encoding?: string | null){
@@ -25,7 +24,8 @@ export abstract class SeparatedWriterBase {
 		this.headersFlushed = true;
 		if(!this.headers && !Array.isArray(firstLine)) // cannot extract headers from array
 			this.headers = Object.keys(firstLine);
-		this.writeLine(this.headers);
+		if(this.headers)
+			this.writeLine(this.headers);
 	}
 	
 	protected cellToString(x: any): string {
@@ -45,8 +45,10 @@ export abstract class SeparatedWriterBase {
 			this.write(this.lineToString(line), this.encoding);
 		} else if(typeof(line) === "object" && line){
 			this.tryWriteHeaders(line);
-			return this.writeLine(this.headers.map(h => line[h]));
-		} else fail("Expected line to write into CSV to be array or non-null object, got neither.");
+			if(!this.headers)
+				throw new Error("Never gonna happen: failed to extract headers from object")
+			this.writeLine(this.headers.map(h => line[h]));
+		} else throw new Error("Expected line to write into CSV to be array or non-null object, got neither.");
 	}
 	
 }

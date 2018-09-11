@@ -7,7 +7,7 @@ export class CompositeEventError<T> extends Error {
 	public readonly event: IEvent<T>;
 	public readonly eventArgs: T;
 	constructor(nested: Error[], event: IEvent<T>, eventArgs: T){
-		super(nested.length + " error(s) happened during execution of listeners of event" + (event.name? " " + event.name: "") + ".")
+		super(nested.length + " error(s) happened during execution of listeners of event" + (event.eventName? " " + event.eventName: "") + ".")
 		this.event = event;
 		this.eventArgs = eventArgs;
 		this.nested = nested;
@@ -15,11 +15,11 @@ export class CompositeEventError<T> extends Error {
 }
 
 export class BareEvent<T> {
-	public readonly name: string;
+	public readonly eventName: string;
 	private listeners = new Set<Listener<T>>();
 
 	constructor(name?: string){
-		this.name = name || "";
+		this.eventName = name || "";
 	}
 
 	listen(listener: Listener<T>): void { this.listeners.add(listener) }
@@ -48,6 +48,13 @@ export function Event<T = void>(name?: string): IEvent<T> {
 	let fn = function(newListener: Listener<T>): void {
 		fnn.listen(newListener);
 	}
-	let fnn: IEvent<T> = Object.assign(fn, new BareEvent<T>(name), BareEvent.prototype);
+	let bare = new BareEvent<T>(name);
+	let fnn: IEvent<T> = Object.assign(fn, bare);
+
+	let copiedFnNames = ["listen", "unlisten", "hasListeners", "fire"];
+	copiedFnNames.forEach(fnName => {
+		(fnn as any)[fnName] = (bare as any)[fnName];
+	});
+
 	return fnn;
 };

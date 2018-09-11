@@ -23,7 +23,13 @@ export function tag(params?: TagDescription): HTMLElement {
 
 	if(params.style) {
 		let m = params.style;
-		el.style.cssText = Object.keys(m).map(k => k + ":" + m[k]).join(";");
+		Object.keys(m).forEach(k => {
+			if(!(k in el.style)){
+				console.warn("Unkown style property: " + k);
+			} else {
+				(el.style as any)[k] = m[k];
+			}
+		})
 	}
 
 	if(params.text)
