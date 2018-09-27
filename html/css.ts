@@ -29,7 +29,10 @@ export function render(code: CssCodeable): HTMLStyleElement {
 }
 
 export function activate(element: HTMLStyleElement){
-	document.head.appendChild(element);
+	if(document.head)
+		document.head.appendChild(element);
+	else
+		throw new Error("No document head! Could not append element.");
 }
 
 export function deactivate(element: HTMLStyleElement){
