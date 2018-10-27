@@ -10,13 +10,13 @@ function dateFmt(inner: DateFormat): DateFormat {
 	return d => d && (d instanceof Date)? inner(d): "";
 }
 
-export const date = dateFmt((d: Date) => d.getFullYear() + '.' + twoDigits(d.getMonth() + 1) + '.' + twoDigits(d.getDate()))
-export const timeHours = dateFmt((d: Date) => twoDigits(d.getHours()))
-export const timeMinutes = dateFmt((d: Date) => timeHours(d) + ':' + twoDigits(d.getMinutes()))
-export const timeSeconds = dateFmt((d: Date) => timeMinutes(d) + ':' + twoDigits(d.getSeconds()))
-export const timeMilliseconds = dateFmt((d: Date) => timeSeconds(d) + ':' + threeDigits(d.getMilliseconds()))
+export const utcDate = dateFmt((d: Date) => d.getUTCFullYear() + '.' + twoDigits(d.getUTCMonth() + 1) + '.' + twoDigits(d.getUTCDate()))
+export const utcTimeHours = dateFmt((d: Date) => twoDigits(d.getUTCHours()))
+export const utcTimeMinutes = dateFmt((d: Date) => utcTimeHours(d) + ':' + twoDigits(d.getUTCMinutes()))
+export const utcTimeSeconds = dateFmt((d: Date) => utcTimeMinutes(d) + ':' + twoDigits(d.getUTCSeconds()))
+export const utcTimeMilliseconds = dateFmt((d: Date) => utcTimeSeconds(d) + ':' + threeDigits(d.getUTCMilliseconds()))
 
-export const timeToHours = dateFmt((d: Date) => date(d) + " " + timeHours(d))
-export const timeToMinutes = dateFmt((d: Date) => date(d) + " " + timeMinutes(d))
-export const timeToSeconds = dateFmt((d: Date) => date(d) + " " + timeSeconds(d))
-export const timeToMilliseconds = dateFmt((d: Date) => date(d) + " " + timeMilliseconds(d))
+export const utcTimeToHours = dateFmt((d: Date) => utcDate(d) + " " + utcTimeHours(d))
+export const utcTimeToMinutes = dateFmt((d: Date) => utcDate(d) + " " + utcTimeMinutes(d))
+export const utcTimeToSeconds = dateFmt((d: Date) => utcDate(d) + " " + utcTimeSeconds(d))
+export const utcTimeToMilliseconds = dateFmt((d: Date) => utcDate(d) + " " + utcTimeMilliseconds(d))

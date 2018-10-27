@@ -2,7 +2,11 @@ export type Milliseconds = Date | number;
 export type Unixtime = Date | number;
 
 export function milliseconsToDate(d: Milliseconds): Date | null {
-	return typeof(d) === "number"? new Date(d): d && (d instanceof Date)? d: null;
+	if(typeof(d) === "number"){
+		return new Date(d);
+	} else if(d instanceof Date){
+		return d
+	} else return null;
 }
 export function unixtimeToDate(d: Unixtime): Date | null {
 	return milliseconsToDate(typeof(d) === "number"? d * 1000: d);
