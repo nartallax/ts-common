@@ -1,6 +1,7 @@
 import {Async} from "./types";
 
-export type Listener = (unlock: () => void) => void;
+export type Listener = () => void;
+export type AcquireCallback = (unlock: () => void) => void;
 
 export class Lock {
 	private locked: boolean = false;
@@ -36,7 +37,7 @@ export class Lock {
 		}
 	}
 	
-	public acquire(listener: Listener){
+	public acquire(listener: AcquireCallback){
 		this.wait(() => {
 			this.lock();
 			listener(() => this.unlock());
