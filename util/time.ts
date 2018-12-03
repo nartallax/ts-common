@@ -18,3 +18,9 @@ export function unixtime(d?: Unixtime): number {
 export function milliseconds(d?: Milliseconds): number {
 	return (milliseconsToDate(d || new Date()) || new Date()).getTime();
 }
+
+export function unixtimePlusTzOffset(d?: Unixtime): number { 
+	let res = unixtime(d);
+	res -= (new Date().getTimezoneOffset() * 60)
+	return res;
+}
