@@ -7,7 +7,7 @@ function threeDigits(n: number): string {
 
 export type DateFormat = (d: Date) => string
 function dateFmt(inner: DateFormat): DateFormat {
-	return d => d && (d instanceof Date)? inner(d): "";
+	return d => (d && (d instanceof Date))? inner(d): "";
 }
 
 export const utcDate = dateFmt((d: Date) => d.getUTCFullYear() + '.' + twoDigits(d.getUTCMonth() + 1) + '.' + twoDigits(d.getUTCDate()))
