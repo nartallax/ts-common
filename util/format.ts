@@ -20,3 +20,14 @@ export const utcTimeToHours = dateFmt((d: Date) => utcDate(d) + " " + utcTimeHou
 export const utcTimeToMinutes = dateFmt((d: Date) => utcDate(d) + " " + utcTimeMinutes(d))
 export const utcTimeToSeconds = dateFmt((d: Date) => utcDate(d) + " " + utcTimeSeconds(d))
 export const utcTimeToMilliseconds = dateFmt((d: Date) => utcDate(d) + " " + utcTimeMilliseconds(d))
+
+export const localDate = dateFmt((d: Date) => d.getFullYear() + '.' + twoDigits(d.getMonth() + 1) + '.' + twoDigits(d.getDate()))
+export const localTimeHours = dateFmt((d: Date) => twoDigits(d.getHours()))
+export const localTimeMinutes = dateFmt((d: Date) => localTimeHours(d) + ':' + twoDigits(d.getMinutes()))
+export const localTimeSeconds = dateFmt((d: Date) => localTimeMinutes(d) + ':' + twoDigits(d.getSeconds()))
+export const localTimeMilliseconds = dateFmt((d: Date) => localTimeSeconds(d) + ':' + threeDigits(d.getMilliseconds()))
+
+export const localTimeToHours = dateFmt((d: Date) => localDate(d) + " " + localTimeHours(d))
+export const localTimeToMinutes = dateFmt((d: Date) => localDate(d) + " " + localTimeMinutes(d))
+export const localTimeToSeconds = dateFmt((d: Date) => localDate(d) + " " + localTimeSeconds(d))
+export const localTimeToMilliseconds = dateFmt((d: Date) => localDate(d) + " " + localTimeMilliseconds(d))
