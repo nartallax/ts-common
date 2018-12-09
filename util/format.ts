@@ -31,3 +31,30 @@ export const localTimeToHours = dateFmt((d: Date) => localDate(d) + " " + localT
 export const localTimeToMinutes = dateFmt((d: Date) => localDate(d) + " " + localTimeMinutes(d))
 export const localTimeToSeconds = dateFmt((d: Date) => localDate(d) + " " + localTimeSeconds(d))
 export const localTimeToMilliseconds = dateFmt((d: Date) => localDate(d) + " " + localTimeMilliseconds(d))
+
+export const timeSpan = (seconds: number): string => {
+	let result = "";
+	let resultPrefix = ""
+
+	if(seconds < 0){
+		resultPrefix = "-"
+		seconds = -seconds;
+	}
+	let time = Math.round(seconds);
+	
+	result = twoDigits(time % 60) + result;
+	time = Math.floor(time / 60);
+	result = (time > 60? twoDigits(time % 60): time) + ":" + result;
+	time = Math.floor(time / 60);
+	if(time > 0){
+		result += (time % 24) + ":" + result;
+		time = Math.floor(time / 24);
+
+		if(time > 0){
+			result += time + " " + (time === 1? "день": time < 5? "дня": "дней") + ", " + result
+		}
+	}
+
+	
+	return resultPrefix + result;
+}
