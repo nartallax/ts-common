@@ -50,6 +50,11 @@ export class SetQueue<V> extends Queue<V>{
 		this.removeElement(this.elByKey(key));
 	}
 
+	clear(){
+		super.clear();
+		this.elRefs = new Map();
+	}
+
 }
 
 function assert(cond: () => boolean){

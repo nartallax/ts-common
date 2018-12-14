@@ -59,6 +59,25 @@ export class LRUCache<A, V> {
 		})
 	}
 
+	/** Выкинуть все кешированные значения
+	 *  Если какие-то значения находятся в процессе запроса, они не будут выкинуты; запросы не будут прерваны.
+	 */
+	clear(){
+		this.cacheQueue.clear();
+	}
+
+	/** Дождаться окончания всех запросов
+	 * В момент возврата Promise очередь запросов пуста. 
+	 * Это может нарушаться только в случае поступления запроса после вызова ok у Promise
+	 */
+	waitRequestsFinished(): Promise<void>{
+		return this.requestQueue.waitEmpty();
+	}
+
+	get havePendingRequests(): boolean {
+		return this.requestQueue.size > 0
+	}
+
 	protected hasCachedItem(key: LruCacheItemKey): boolean {
 		return this.cacheQueue.hasKey(key)
 	}

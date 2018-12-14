@@ -54,6 +54,12 @@ export class Queue<V> implements Iterable<V> {
 
 		return null;
 	}
+
+	/** Удалить все элементы очереди */
+	clear(){
+		this._size = 0;
+		this.head = this.tail = null;
+	}
 	
 	protected removeElement(el: QueueEl<V>){
 		if(el.prev)

@@ -50,6 +50,10 @@ export class AsyncRectifyingQueue<T>{
 		this.pingQueue();
 	}
 
+	get size(): number {
+		return this.awaitingQueue.size;
+	}
+
 	protected pingQueue(){
 		while(this.awaitingQueue.size > 0){
 			let head = this.awaitingQueue.peek();
