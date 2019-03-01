@@ -47,11 +47,11 @@ export const timeSpan = (seconds: number): string => {
 	result = (time > 60? twoDigits(time % 60): time) + ":" + result;
 	time = Math.floor(time / 60);
 	if(time > 0){
-		result += (time % 24) + ":" + result;
+		result = (time % 24) + ":" + result;
 		time = Math.floor(time / 24);
 
 		if(time > 0){
-			result += time + " " + (time === 1? "день": time < 5? "дня": "дней") + ", " + result
+			result = time + " " + (time === 1? "день": time < 5? "дня": "дней") + ", " + result
 		}
 	}
 
