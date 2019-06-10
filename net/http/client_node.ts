@@ -5,7 +5,7 @@ import {MapObject} from "util/types";
 
 export interface HttpResponse {
 	body: Buffer;
-	headers: MapObject<string>;
+	headers: MapObject<string | string[]>;
 	statusCode: number;
 }
 

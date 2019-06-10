@@ -34,7 +34,9 @@ export class Rottable<T> {
 		try {
 			this.stored = await Promise.resolve(this.fetch.call(null));
 		} catch(e){ 
-			this.valueWaiters.forEach(x => x.bad(e));
+			let waiters = this.valueWaiters;
+			this.valueWaiters = [];
+			waiters.forEach(x => x.bad(e));
 			return;
 		}
 
