@@ -8,6 +8,7 @@ export class CompositeEventError<T> extends Error {
 	public readonly eventArgs: T;
 	constructor(nested: Error[], event: IEvent<T>, eventArgs: T){
 		super(nested.length + " error(s) happened during execution of listeners of event" + (event.eventName? " " + event.eventName: "") + ".")
+		nested.forEach(err => console.error(err.stack));
 		this.event = event;
 		this.eventArgs = eventArgs;
 		this.nested = nested;

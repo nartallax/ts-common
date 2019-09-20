@@ -53,8 +53,18 @@ export const timeSpan = (seconds: number): string => {
 		if(time > 0){
 			result = time + " " + (time === 1? "день": time < 5? "дня": "дней") + ", " + result
 		}
-	}
+	}	
 
 	
 	return resultPrefix + result;
+}
+
+const hexDigits: ReadonlyArray<string> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"];
+export function number52ToHex(number: number): string {
+	let result = "";
+	for(let i = 0; i < 52 / 4; i++){
+		result = hexDigits[number & 0xf] + result;
+		number = Math.floor(number / 0x10);
+	}
+	return result;
 }
