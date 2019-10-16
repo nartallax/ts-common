@@ -8,7 +8,7 @@ export interface TagDescription {
 	style?: MapObject<string>;
 	parent?: HTMLElement;
 	text?: string;
-	children?: (HTMLElement | TagDescription | null | undefined)[];
+	children?: (HTMLElement | SVGSVGElement | TagDescription | null | undefined)[];
 	value?: any;
 	attrs?: MapObject<string>,
 	events?: EventMapObject
@@ -38,7 +38,7 @@ export function tag(params?: TagDescription): HTMLElement {
 	if(params.children)
 		params.children
 			.filter(x => !!x)
-			.forEach(x => el.appendChild(x instanceof HTMLElement? x: tag(x as TagDescription)));
+			.forEach(x => el.appendChild(x instanceof HTMLElement || x instanceof SVGSVGElement? x: tag(x as TagDescription)));
 
 	if("value" in params) {
 		if(el instanceof HTMLInputElement)
