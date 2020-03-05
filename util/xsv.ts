@@ -63,8 +63,6 @@ export class CsvWriter extends SeparatedWriterBase {
 
 export class TsvWriter extends SeparatedWriterBase {
 	protected lineToString(lineArr: any[]): string{
-		return "\"" 
-			+ lineArr.map(x => this.cellToString(x).replace(/[\t\n\r]/g, " ")).join("\t")
-			+ "\"\n"
+		return lineArr.map(x => this.cellToString(x).replace(/[\t\n\r]/g, " ")).join("\t") + "\n"
 	}
 }
