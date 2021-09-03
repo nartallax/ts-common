@@ -36,7 +36,7 @@ export class Rottable<T> {
 		} catch(e){ 
 			let waiters = this.valueWaiters;
 			this.valueWaiters = [];
-			waiters.forEach(x => x.bad(e));
+			waiters.forEach(x => x.bad(e as Error));
 			return;
 		}
 

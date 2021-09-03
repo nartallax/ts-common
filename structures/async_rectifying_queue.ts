@@ -44,7 +44,7 @@ export class AsyncRectifyingQueue<T>{
 		try {
 			el.result = await Promise.resolve(makeRequest());
 		} catch(e){
-			el.error = e;
+			el.error = e as Error;
 		}
 		el.done = true;
 		this.pingQueue();

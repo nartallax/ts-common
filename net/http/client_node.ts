@@ -76,6 +76,6 @@ export function httpRequest(params: HttpParams): Promise<HttpResponse>{
 				req.write(params.body, "utf8");
 
 			req.end();
-		} catch(e){ return bad(e) }
+		} catch(e){ return bad(e as Error) }
 	})
 }

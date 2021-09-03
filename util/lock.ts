@@ -21,7 +21,7 @@ export class Lock {
 			if(this.locked) return;
 		}
 		
-		delete this.listeners;
+		this.listeners = null;
 	}
 	
 	public get acquired(): boolean { 
